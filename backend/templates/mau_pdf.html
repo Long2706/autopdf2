@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>BÁO CÁO KHÁM SỨC KHỎE</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 30px;
+      padding: 0;
+      background-color: #fff;
+      color: #000;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+        width: 80px;
+        height: auto;
+    }
+
+    .info-wrap {
+      text-align: left;
+    }
+
+    .info-wrap h1 {
+      margin: 0;
+      font-size: 20px;
+    }
+
+    .info-wrap p {
+      font-size: 11px;
+      margin: 2px 0;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 20px;
+      color: #b30000;
+      border-bottom: 1px solid #b30000;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #007c3c;
+      font-size: 16px;
+      margin: 20px 0 10px;
+    }
+
+    h4 {
+      font-size: 14px;
+      margin: 10px 0 5px;
+      color: #000;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      font-size: 12px;
+    }
+
+    table th, table td {
+      border: 1px solid #aaa;
+      padding: 6px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    table th {
+      background-color: #f0f0f0;
+    }
+
+    .footer-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      font-size: 11px;
+    }
+
+    .contact-box {
+      line-height: 1.4;
+    }
+
+    .doctor-right {
+      text-align: right;
+    }
+
+    .signature-line {
+      display: inline-block;
+      width: 200px;
+      border-bottom: 1px dotted #000;
+      height: 1em;
+      vertical-align: bottom;
+    }
+
+    .qr-code {
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .qr-code img {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <div class="header-flex">
+        <div class="info-wrap">
+          <h1>BỆNH VIỆN ĐA KHOA AN PHÚ</h1>
+          <p>Số 05, Đường 22 tháng 12, Khu phố 1A, P. An Phú, TP. Thuận An, Bình Dương</p>
+          <p>Email: admin@benhvienanphu.vn | Website: benhvienanphu.vn</p>
+          <p>Điện thoại: 0274.3725.115 – 0911.071.001</p>
+        </div>
+        <img src="{{logoBase64}}" alt="Logo" class="logo">
+      </div>
+    </header>
+
+    <main>
+      <h2>HỒ SƠ QUẢN LÝ SỨC KHỎE CÁ NHÂN</h2>
+
+      <div class="section">
+        <h3>1. Thông tin nhân viên</h3>
+        <table>
+          <tr><td>Họ và tên:</td><td>{{ten_nv}}</td></tr>
+          <tr><td>Giới tính:</td><td>{{gioi_tinh}}</td></tr>
+          <tr><td>Ngày sinh:</td><td>{{ngay_sinh}}</td></tr>
+          <tr><td>Số CMND/CCCD:</td><td>{{ma_nv}}</td></tr>
+          <tr><td>Nơi làm việc/nơi cấp:</td><td>{{bo_phan}}</td></tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>II. TÓM TẮT KẾT QUẢ KHÁM SỨC KHỎE ĐỊNH KỲ</h3>
+
+        <h4>a. Chỉ số sinh hiệu</h4>
+        <table>
+          <tr><th>Chỉ số</th><th>Kết quả</th></tr>
+          <tr><td>Huyết áp</td><td>{{huyet_ap}}</td></tr>
+          <tr><td>Mạch</td><td>{{mach}}</td></tr>
+          <tr><td>Chiều cao</td><td>{{chieu_cao}}</td></tr>
+          <tr><td>Cân nặng</td><td>{{can_nang}}</td></tr>
+          <tr><td>BMI</td><td>{{bmi}}</td></tr>
+        </table>
+        <p><strong>Đánh giá:</strong> {{danh_gia}}</p>
+
+        <h4>b. Khám chuyên khoa</h4>
+        <table>
+          <tr><th>Chuyên khoa</th><th>Kết luận</th><th>Kiến nghị</th></tr>
+          <tr><td>Nội tổng quát</td><td>{{tong_hop_ket_qua}}</td><td>{{kien_nghi}}</td></tr>
+          <tr><td>Tuần Hoàn</td><td>{{tuan_hoan}}</td><td></td></tr>
+          <tr><td>Hô Hấp</td><td>{{ho_hap}}</td><td></td></tr>
+          <tr><td>Tiêu Hóa</td><td>{{tieu_hoa}}</td><td></td></tr>
+          <tr><td>Thận-Tiết Niệu</td><td>{{than_tiet_nieu}}</td><td></td></tr>
+          <tr><td>Nội Tiết</td><td>{{noi_tiet}}</td><td></td></tr>
+          <tr><td>Cơ-Xương-Khớp</td><td>{{co_xuong_khop}}</td><td></td></tr>
+          <tr><td>Thần Kinh</td><td>{{than_kinh}}</td><td></td></tr>
+          <tr><td>Tâm Thần</td><td>{{tam_than}}</td><td></td></tr>
+          <tr><td>Ngoại khoa</td><td>{{ngoai_khoa}}</td><td></td></tr>
+          <tr><td>Da liễu</td><td>{{da_lieu}}</td><td></td></tr>
+          <tr><td>Sản Phụ Khoa</td><td>{{san_phu_khoa}}</td><td></td></tr>
+          <tr><td>Mắt</td><td>{{mat}}</td><td></td></tr>
+          <tr><td>Tai-Mũi-Họng</td><td>{{tai_mui_hong}}</td><td></td></tr>
+          <tr><td>Răng-Hàm-Mặt</td><td>{{rang_ham_mat}}</td><td></td></tr>
+        </table>
+
+        <h4>c. Kết quả cận lâm sàng</h4>
+        <table>
+          <tr><th>Kiểm tra</th><th>Kết quả</th></tr>
+          <tr><td>Xét nghiệm</td><td>{{tong_hop_ket_qua}}</td></tr>
+          <tr><td>Chụp X-quang</td><td>{{chup_x_quang}}</td></tr>
+          <tr><td>Siêu âm tuyến giáp</td><td>{{sieu_am_tuyen_giap}}</td></tr>
+          <tr><td>Siêu âm bụng</td><td>{{sieu_am_bung}}</td></tr>
+        </table>
+      </div>
+
+      <div class="section">
+        <h3>4. Kết luận - Phân loại sức khỏe</h3>
+        <p>Loại sức khỏe tổng quát: {{phan_loai}}</p>
+        <p>Kiến nghị: {{kien_nghi2}}</p>
+      </div>
+
+      <div class="section">
+        <h3>5. Kiến nghị chuyên khoa</h3>
+        <table>
+          <tr><th>Kiến nghị</th></tr>
+          <tr><td>{{kien_nghi2}}</td></tr>
+        </table>
+      </div>
+
+      <div class="footer-container">
+        <div class="contact-box">
+          <p><strong>Email:</strong> admin@benhvienanphu.vn</p>
+          <p><strong>Web:</strong> benhvienanphu.vn</p>
+          <p><strong>Facebook:</strong> facebook.com/bvdanphu</p>
+          <p><strong>HOTLINE:</strong> 0911 071 001</p>
+        </div>
+        <div class="doctor-right">
+          <p></p>
+          <p class="doctor">Bác sĩ kết luận: Bs CKI. Nguyễn Ngọc Vân</span></p>
+         
+        </div>
+      </div>
+
+      <div class="qr-code">
+        <img src="{{qrCode}}" alt="QR Code">
+      </div>
+    </main>
+  </div>
+</body>
+</html>

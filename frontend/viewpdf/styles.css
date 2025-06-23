@@ -1,0 +1,214 @@
+/* styles.css */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #ffffff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 960px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 30px 40px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+h1 {
+  font-size: 22px;
+  color: #2c3e50;
+  margin: 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  padding-bottom: 5px;
+
+  background: linear-gradient(90deg, #b30000, #ff0000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  
+}
+
+
+h3 {
+  color: #006400; /* 🔄 Đổi về đen như yêu cầu */
+  margin-top: 30px;
+  margin-bottom: 10px;
+  border-left: 4px solid #8bc34a;
+  padding-left: 10px;
+}
+
+h4 {
+  color: #444;
+  margin: 15px 0 5px;
+  font-size: 16px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table td,
+table th {
+  padding: 10px;
+  border: 1px solid #ccc;
+  vertical-align: top;
+}
+
+table th {
+  background: #f0f8f5;
+  color: #2c3e50;
+  text-align: left;
+}
+
+table tr:nth-child(even) td {
+  background: #f9f9f9;
+}
+
+/* ==== FOOTER LAYOUT ==== */
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 30px;
+  font-size: 14px;
+  border-top: 1px dashed #ccc;
+  padding-top: 20px;
+}
+
+.footer-column {
+  flex: 1 1 45%;
+}
+
+.contact-box {
+  background: #f9f9f9;
+  padding: 15px 20px;
+  border-left: 4px solid #4caf50;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+}
+
+.contact-box p {
+  margin: 4px 0;
+}
+
+.contact-box .hotline {
+  font-weight: bold;
+  margin-top: 10px;
+  color: #c62828;
+}
+
+.right-column {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.doctor {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ==== SIGNATURE LINE ==== */
+.signature-line {
+  display: inline-block;
+  border-bottom: 1px dotted #444;
+  width: 250px;
+  height: 1em;
+  vertical-align: bottom;
+  margin-left: 10px;
+}
+
+/* ==== QR CODE STYLE ==== */
+.qrcode img {
+  width: 100px;
+  height: auto;
+  margin-top: 10px;
+}
+
+/* ==== PRINT MODE ==== */
+@media print {
+  body {
+    background: #fff;
+  }
+
+  .container {
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .qrcode img {
+    display: none;
+  }
+}
+
+
+.header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.logo-wrap {
+  flex: 0 0 auto;
+}
+
+.logo {
+  width: 70px;
+  height: auto;
+}
+
+.info-wrap {
+  flex: 1;
+  text-align: right; /* ✅ Căn phải */
+}
+
+.info-wrap h1 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #006400;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.address, .contact {
+  font-size: 14px;
+  margin: 2px 0;
+  color: #333;
+  line-height: 1.5;
+}

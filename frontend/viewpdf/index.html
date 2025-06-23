@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hồ Sơ Sức Khỏe Cá Nhân</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <div class="header-flex">
+        <div class="logo-wrap">
+          <img src="assets/images/logo.png" alt="Logo Bệnh viện An Phú" class="logo">
+
+        </div>
+        <div class="info-wrap">
+          <h1>BỆNH VIỆN ĐA KHOA AN PHÚ</h1>
+          <p class="address">Số 05, Đường 22 tháng 12, Khu phố 1A, Phường An Phú, Thành phố Thuận An, Tỉnh Bình Dương</p>
+          <p class="contact">
+            admin@benhvienanphu.vn | benhvienanphu.vn<br>
+            ☎ 0274.3725.115 – 0911.071.001
+          </p>
+        </div>
+      </div>
+    </header>
+    
+    <main>
+      <h2>HỒ SƠ QUẢN LÝ SỨC KHỎE CÁ NHÂN</h2>
+      <div id="content">Đang tải dữ liệu...</div>
+    </main>
+    <footer>
+      <div class="footer-container">
+        <div class="footer-column contact-box">
+          <p><strong>Email:</strong> admin@benhvienanphu.vn</p>
+          <p><strong>Web:</strong> benhvienanphu.vn</p>
+          <p><strong>Facebook:</strong> facebook.com/bvdanphu</p>
+          <p><strong>CSKH:</strong></p>
+          <p>0917 665 115 Mr Tiến</p>
+          <p>0849 850 115 Ms Trinh</p>
+          <p>0972 641 115 Ms Bé</p>
+          <p class="hotline"><strong>HOTLINE:</strong> 0911 071 001</p>
+        </div>
+      
+        <div class="footer-column doctor-right">
+          <p class="doctor">Bác sĩ kết luận: <span class="signature-line"></span></p>
+        </div>
+      </div>
+      
+    </footer>
+  </div>
+
+  <script src="/config.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const ma_nv = params.get('ma_nv');
+    const token = params.get('token');
+    const content = document.getElementById('content');
+
+    if (!ma_nv || !token) {
+      content.innerHTML = `<p style="color:red">❌ Thiếu mã nhân viên hoặc token.</p>`;
+    } else {
+      fetch(`${API_BASE_URL}/records/${ma_nv}?token=${token}`)
+        .then(res => res.ok ? res.json() : Promise.reject('Token sai hoặc không tìm thấy'))
+        .then(data => {
+          content.innerHTML = `
+            <div class="section">
+              <h3>1. Thông tin nhân viên</h3>
+              <table>
+                <tr><td>Họ và tên:</td><td>${data.ten_nv || ''}</td></tr>
+                <tr><td>Giới tính:</td><td>${data.gioi_tinh || ''}</td></tr>
+                <tr><td>Ngày sinh:</td><td>${data.ngay_sinh || ''}</td></tr>
+                <tr><td>Số CMND/CCCD:</td><td>${data.ma_nv || ''}</td></tr>
+                <tr><td>Nơi làm việc/nơi cấp:</td><td>${data.bo_phan || ''}</td></tr>
+              </table>
+            </div>
+            <div class="section">
+              <h3>II. TÓM TẮT KẾT QUẢ KHÁM SỨC KHỎE ĐỊNH KỲ</h3>
+              <h4>a. Chỉ số sinh hiệu</h4>
+              <table>
+                <tr><th>Chỉ số</th><th>Kết quả</th></tr>
+                <tr><td>Huyết áp</td><td>${data.huyet_ap || ''}</td></tr>
+                <tr><td>Mạch</td><td>${data.mach || ''}</td></tr>
+                <tr><td>Chiều cao</td><td>${data.chieu_cao || ''}</td></tr>
+                <tr><td>Cân nặng</td><td>${data.can_nang || ''}</td></tr>
+                <tr><td>BMI</td><td>${data.bmi || ''}</td></tr>
+              </table>
+              <p>Bác sĩ đánh giá: ${data.danh_gia || ''}</p>
+            </div>
+            <div class="section">
+              <h4>b. Khám chuyên khoa</h4>
+              <table>
+                <tr><th>Chuyên khoa</th><th>Kết luận</th><th>Kiến nghị</th></tr>
+                <tr><td>Nội tổng quát:</td><td>${data.tong_hop_ket_qua || ''}</td><td>${data.kien_nghi || ''}</td></tr>
+                <tr><td>Tuần Hoàn</td><td>${data.tuan_hoan || ''}</td><td></td></tr>
+                <tr><td>Hô Hấp</td><td>${data.ho_hap || ''}</td><td></td></tr>
+                <tr><td>Tiêu Hóa</td><td>${data.tieu_hoa || ''}</td><td></td></tr>
+                <tr><td>Thận-Tuyến Niệu</td><td>${data.than_tiet_nieu || ''}</td><td></td></tr>
+                <tr><td>Nội Tiết</td><td>${data.noi_tiet || ''}</td><td></td></tr>
+                <tr><td>Cơ-Xương-Khớp</td><td>${data.co_xuong_khop || ''}</td><td></td></tr>
+                <tr><td>Thần Kinh</td><td>${data.than_kinh || ''}</td><td></td></tr>
+                <tr><td>Tam Thận</td><td>${data.tam_than || ''}</td><td></td></tr>
+                <tr><td>Ngòai khoa</td><td>${data.ngoai_khoa || ''}</td><td></td></tr>
+                <tr><td>Da liễu</td><td>${data.da_lieu || ''}</td><td></td></tr>
+                <tr><td>Sản Phụ Khoa</td><td>${data.san_phu_khoa || ''}</td><td></td></tr>
+                <tr><td>Mắt</td><td>${data.mat || ''}</td><td></td></tr>
+                <tr><td>Tai-Mũi-Họng</td><td>${data.tai_mui_hong || ''}</td><td></td></tr>
+                <tr><td>Răng-Hàm-Mặt</td><td>${data.rang_ham_mat || ''}</td><td></td></tr>
+              </table>
+            </div>
+            <div class="section">
+              <h4>c. Kết quả cận lâm sàng</h4>
+              <table>
+                <tr><th>Kiểm tra</th><th>Kết quả</th></tr>
+                <tr><td>Xét nghiệm:</td><td>${data.tong_hop_ket_qua || ''}</td></tr>
+                <tr><td>Chụp X-quang:</td><td>${data.chup_x_quang || ''}</td></tr>
+                <tr><td>Siêu âm tuyến giáp:</td><td>${data.sieu_am_tuyen_giap || ''}</td></tr>
+                <tr><td>Siêu âm bụng:</td><td>${data.sieu_am_bung || ''}</td></tr>
+              </table>
+            </div>
+            <div class="section">
+              <h3>4. Kết luận - Phân loại sức khỏe</h3>
+              <p>Loại sức khỏe tổng quát: ${data.phan_loai || ''}</p>
+              <p>Kiến nghị: ${data.kien_nghi2 || data.kien_nghi || ''}</p>
+            </div>
+            <div class="section">
+              <h3>5. <strong>Kiến nghị chuyên khoa</strong></h3>
+              <table>
+                <tr><th>Kiến nghị</th></tr>
+                <tr><td>${data.kien_nghi2 || ''}</td></tr>
+              </table>
+            </div>
+          `;
+        })
+        .catch(err => {
+          content.innerHTML = `<p style="color:red">❌ ${err}</p>`;
+        });
+    }
+  </script>
+</body>
+</html>
