@@ -1,3 +1,4 @@
+<!-- File: backend/templates/mau_pdf.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -25,8 +26,9 @@
     }
 
     .logo {
-        width: 80px;
-        height: auto;
+      width: 80px;
+      height: auto;
+      display: block;
     }
 
     .info-wrap {
@@ -38,6 +40,13 @@
       font-size: 20px;
     }
 
+    .company-name {
+      font-size: 12px;
+      margin: 5px 0;
+      color: #555;
+      text-align: center;
+    }
+
     .info-wrap p {
       font-size: 11px;
       margin: 2px 0;
@@ -47,9 +56,8 @@
       text-align: center;
       margin-top: 20px;
       color: #b30000;
-      border-bottom: 1px solid #b30000;
       padding-bottom: 5px;
-      margin-bottom: 20px;
+      margin-bottom: 0;
     }
 
     h3 {
@@ -76,6 +84,10 @@
       padding: 6px;
       vertical-align: top;
       text-align: left;
+      word-wrap: break-word;
+      word-break: break-all;
+      max-width: 0;
+      white-space: pre-wrap;
     }
 
     table th {
@@ -85,33 +97,34 @@
     .footer-container {
       display: flex;
       justify-content: space-between;
-      margin-top: 30px;
+      align-items: flex-start;
+      margin-top: 20px;
       font-size: 11px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
     }
 
     .contact-box {
       line-height: 1.4;
+      flex: 1;
     }
 
     .doctor-right {
       text-align: right;
-    }
-
-    .signature-line {
-      display: inline-block;
-      width: 200px;
-      border-bottom: 1px dotted #000;
-      height: 1em;
-      vertical-align: bottom;
+      flex: 1;
     }
 
     .qr-code {
-      text-align: right;
-      margin-top: 20px;
+      text-align: left; /* Đặt QR sát mép trái */
+      margin-top: 10px;
     }
 
     .qr-code img {
       width: 100px;
+    }
+
+    .section:last-child {
+      page-break-inside: avoid;
     }
   </style>
 </head>
@@ -125,21 +138,23 @@
           <p>Email: admin@benhvienanphu.vn | Website: benhvienanphu.vn</p>
           <p>Điện thoại: 0274.3725.115 – 0911.071.001</p>
         </div>
-        <img src="{{logoBase64}}" alt="Logo" class="logo">
+        <img src="{{logoBase64}}" alt="Logo" class="logo" onerror="this.style.display='none'; console.log('Logo load failed')">
       </div>
     </header>
 
     <main>
-      <h2>HỒ SƠ QUẢN LÝ SỨC KHỎE CÁ NHÂN</h2>
+      <h2>HỒ SƠ SAU KHÁM SỨC KHỎE ĐỊNH KÌ</h2>
+      <p class="company-name">CÔNG TY LIWAYWAY</p>
 
       <div class="section">
         <h3>1. Thông tin nhân viên</h3>
         <table>
+          <tr><td>STT:</td><td>{{stt}}</td></tr>
           <tr><td>Họ và tên:</td><td>{{ten_nv}}</td></tr>
           <tr><td>Giới tính:</td><td>{{gioi_tinh}}</td></tr>
           <tr><td>Ngày sinh:</td><td>{{ngay_sinh}}</td></tr>
           <tr><td>Số CMND/CCCD:</td><td>{{ma_nv}}</td></tr>
-          <tr><td>Nơi làm việc/nơi cấp:</td><td>{{bo_phan}}</td></tr>
+          <tr><td>Bộ phận:</td><td>{{bo_phan}}</td></tr>
         </table>
       </div>
 
@@ -160,7 +175,7 @@
         <h4>b. Khám chuyên khoa</h4>
         <table>
           <tr><th>Chuyên khoa</th><th>Kết luận</th><th>Kiến nghị</th></tr>
-          <tr><td>Nội tổng quát</td><td>{{tong_hop_ket_qua}}</td><td>{{kien_nghi}}</td></tr>
+          <tr><th>Nội tổng quát</th><td></td><td></td></tr>
           <tr><td>Tuần Hoàn</td><td>{{tuan_hoan}}</td><td></td></tr>
           <tr><td>Hô Hấp</td><td>{{ho_hap}}</td><td></td></tr>
           <tr><td>Tiêu Hóa</td><td>{{tieu_hoa}}</td><td></td></tr>
@@ -190,7 +205,7 @@
       <div class="section">
         <h3>4. Kết luận - Phân loại sức khỏe</h3>
         <p>Loại sức khỏe tổng quát: {{phan_loai}}</p>
-        <p>Kiến nghị: {{kien_nghi2}}</p>
+        <p><strong>Kiến nghị:</strong> {{kien_nghi}}</p>
       </div>
 
       <div class="section">
@@ -207,16 +222,13 @@
           <p><strong>Web:</strong> benhvienanphu.vn</p>
           <p><strong>Facebook:</strong> facebook.com/bvdanphu</p>
           <p><strong>HOTLINE:</strong> 0911 071 001</p>
+          <div class="qr-code">
+            <img src="{{qrCode}}" alt="QR Code">
+          </div>
         </div>
         <div class="doctor-right">
-          <p></p>
-          <p class="doctor">Bác sĩ kết luận: Bs CKI. Nguyễn Ngọc Vân</span></p>
-         
+          <p>Bác sĩ kết luận: Bs CKI. Nguyễn Ngọc Vân</p>
         </div>
-      </div>
-
-      <div class="qr-code">
-        <img src="{{qrCode}}" alt="QR Code">
       </div>
     </main>
   </div>

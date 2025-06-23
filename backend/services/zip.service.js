@@ -1,11 +1,12 @@
+// File: backend/services/zip.service.js
 const AdmZip = require('adm-zip');
 
-async function createZip(files, outputPath) {
+async function createZip(buffers, fileNames) {
   const zip = new AdmZip();
-  for (const file of files) {
-    zip.addLocalFile(file);
-  }
-  zip.writeZip(outputPath);
+  buffers.forEach((buffer, index) => {
+    zip.addFile(fileNames[index], buffer);
+  });
+  return zip.toBuffer();
 }
 
 module.exports = { createZip };

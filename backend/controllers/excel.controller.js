@@ -6,27 +6,35 @@ async function uploadExcel(req, res) {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
-
     const workbook = XLSX.read(req.file.buffer, { type: 'buffer' });
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
-    const data = XLSX.utils.sheet_to_json(worksheet);
+    const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+    const headers = data[0];
+    const jsonData = data.slice(1).map(row => {
+      const obj = {};
+      headers.forEach((header, index) => {
+        obj[header] = row[index];
+      });
+      return obj;
+    });
 
     const query = `
       INSERT INTO health_records (
-        ma_nv, ten_nv, ngay_sinh, gioi_tinh, bo_phan, chieu_cao, can_nang, mach, huyet_ap,
+        stt, ma_nv, ten_nv, ngay_sinh, gioi_tinh, bo_phan, chieu_cao, can_nang, mach, huyet_ap,
         bmi, tuan_hoan, ho_hap, tieu_hoa, than_tiet_nieu, noi_tiet, co_xuong_khop,
         than_kinh, tam_than, ngoai_khoa, da_lieu, san_phu_khoa, mat, tai_mui_hong,
         rang_ham_mat, tong_hop_ket_qua, chup_x_quang, sieu_am_tuyen_giap, sieu_am_bung,
         phan_loai, kien_nghi, kien_nghi2
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16,
-        $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31)
+        $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32)
       ON CONFLICT (ma_nv) DO NOTHING
     `;
 
-    for (const row of data) {
+    for (const row of jsonData) {
       const values = [
-        row['MÃ NV'] || null, row['TÊN NV'] || null, row['NGÀY SINH'] || null,
+        row['STT'] || null, row['MÃ NV'] || null, row['TÊN NV'] || null, row['NGÀY SINH'] || null,
         row['GIỚI TÍNH'] || null, row['BỘ PHẬN'] || null, row['Chiều cao'] || null,
         row['Cân nặng'] || null, row['Mạch'] || null, row['Huyết áp'] || null, row['BMI'] || null,
         row['Tuần hoàn'] || null, row['Hô hấp'] || null, row['Tiêu hóa'] || null,
@@ -41,10 +49,10 @@ async function uploadExcel(req, res) {
       await pool.query(query, values);
     }
 
-    res.status(200).json({ message: 'Data uploaded successfully' });
+    res.status(200).json({ message: 'Dữ liệu tải lên thành công' });
   } catch (error) {
-    console.error('Error uploading Excel:', error);
-    res.status(500).json({ error: 'Internal server error', details: error.message });
+    console.error('Lỗi khi upload Excel:', error);
+    res.status(500).json({ error: 'Lỗi server', details: error.message });
   }
 }
 
@@ -53,8 +61,8 @@ async function getRecords(req, res) {
     const result = await pool.query('SELECT * FROM health_records');
     res.status(200).json(result.rows);
   } catch (error) {
-    console.error('Error fetching records:', error);
-    res.status(500).json({ error: 'Internal server error', details: error.message });
+    console.error('Lỗi khi lấy records:', error);
+    res.status(500).json({ error: 'Lỗi server nội bộ', details: error.message });
   }
 }
 
@@ -66,7 +74,6 @@ async function getRecordByMaNV(req, res) {
     return res.status(400).json({ error: 'Thiếu mã nhân viên hoặc token' });
   }
 
-  // Xác thực đơn giản
   if (token !== `token_${ma_nv}`) {
     return res.status(401).json({ error: 'Token không hợp lệ' });
   }
@@ -78,8 +85,8 @@ async function getRecordByMaNV(req, res) {
     }
     res.status(200).json(result.rows[0]);
   } catch (error) {
-    console.error('Error fetching record:', error);
-    res.status(500).json({ error: 'Internal server error', details: error.message });
+    console.error('Lỗi khi lấy record:', error);
+    res.status(500).json({ error: 'Lỗi server nội bộ', details: error.message });
   }
 }
 

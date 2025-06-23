@@ -1,6 +1,7 @@
+// File: backend/controllers/qr.controller.js
 const { pool } = require('../services/db.service.js');
 const QRCode = require('qrcode');
-const { baseUrl } = require('../config.js');
+const config = require('../config.js');
 
 async function getQR(req, res) {
   try {
@@ -14,11 +15,11 @@ async function getQR(req, res) {
       return res.status(404).json({ error: 'Record not found' });
     }
 
-    // ✅ Tạo link đúng định dạng
+    // Tạo link đúng định dạng
     const token = `token_${ma_nv}`;
-    const url = `${baseUrl}/viewpdf.html?ma_nv=${ma_nv}&token=${token}`;
+    const url = `${config.baseUrl}/viewpdf.html?ma_nv=${ma_nv}&token=${token}`;
 
-    // ✅ Sinh QR từ link
+    // Sinh QR từ link
     const qrCode = await QRCode.toDataURL(url);
 
     res.status(200).json({ qrCode, ma_nv, url });

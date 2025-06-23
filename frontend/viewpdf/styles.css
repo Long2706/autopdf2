@@ -1,9 +1,8 @@
-/* styles.css */
 body {
   font-family: 'Roboto', sans-serif;
   background: #ffffff;
   color: #333;
-  margin: 0;
+  margin: 30px;
   padding: 0;
 }
 
@@ -16,102 +15,123 @@ body {
   border-radius: 10px;
 }
 
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.header-top {
+.header-flex {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 15px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+.logo-wrap {
+  flex: 0 0 auto;
 }
 
 .logo {
-  width: 60px;
+  width: 80px;
   height: auto;
+  display: block;
 }
 
-h1 {
-  font-size: 22px;
-  color: #2c3e50;
-  margin: 0;
+.info-wrap {
+  flex: 1;
+  text-align: left; /* Căn trái thông tin bệnh viện */
+}
+
+.info-wrap h1 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: #006400;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.info-wrap p {
+  font-size: 11px;
+  margin: 2px 0;
+  color: #333;
+  line-height: 1.5;
+}
+
+.company-name {
+  font-size: 12px;
+  margin: 5px 0;
+  color: #555;
+  text-align: center; /* Căn giữa CÔNG TY LIWAYWAY */
 }
 
 h2 {
   text-align: center;
-  font-size: 30px;
+  font-size: 18px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin: 20px 0 0;
   padding-bottom: 5px;
-
   background: linear-gradient(90deg, #b30000, #ff0000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
-  
 }
 
-
 h3 {
-  color: #006400; /* 🔄 Đổi về đen như yêu cầu */
-  margin-top: 30px;
-  margin-bottom: 10px;
-  border-left: 4px solid #8bc34a;
+  color: #007c3c; /* Màu xanh từ mau_pdf.html */
+  font-size: 16px;
+  margin: 20px 0 10px;
+  border-left: 4px solid #8bc34a; /* Giữ border trái xanh */
   padding-left: 10px;
 }
 
 h4 {
+  font-size: 14px;
+  margin: 10px 0 5px;
   color: #444;
-  margin: 15px 0 5px;
-  font-size: 16px;
 }
 
 .section {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
+  font-size: 12px;
 }
 
-table td,
-table th {
-  padding: 10px;
+table th,
+table td {
   border: 1px solid #ccc;
+  padding: 6px;
   vertical-align: top;
+  text-align: left;
+  word-wrap: break-word;
+  word-break: break-all;
+  max-width: 0;
+  white-space: pre-wrap;
 }
 
 table th {
   background: #f0f8f5;
   color: #2c3e50;
-  text-align: left;
 }
 
 table tr:nth-child(even) td {
   background: #f9f9f9;
 }
 
-/* ==== FOOTER LAYOUT ==== */
 .footer-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   flex-wrap: wrap;
   gap: 30px;
-  font-size: 14px;
+  font-size: 11px;
   border-top: 1px dashed #ccc;
-  padding-top: 20px;
-}
-
-.footer-column {
-  flex: 1 1 45%;
+  padding-top: 10px;
 }
 
 .contact-box {
+  line-height: 1.4;
+  flex: 1;
   background: #f9f9f9;
   padding: 15px 20px;
   border-left: 4px solid #4caf50;
@@ -125,43 +145,32 @@ table tr:nth-child(even) td {
 
 .contact-box .hotline {
   font-weight: bold;
-  margin-top: 10px;
   color: #c62828;
 }
 
-.right-column {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
+.doctor-right {
+  flex: 1;
   text-align: right;
 }
 
-.doctor {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-/* ==== SIGNATURE LINE ==== */
-.signature-line {
-  display: inline-block;
-  border-bottom: 1px dotted #444;
-  width: 250px;
-  height: 1em;
-  vertical-align: bottom;
-  margin-left: 10px;
-}
-
-/* ==== QR CODE STYLE ==== */
-.qrcode img {
-  width: 100px;
-  height: auto;
+.qr-code {
+  text-align: left;
   margin-top: 10px;
 }
 
-/* ==== PRINT MODE ==== */
+.qr-code img {
+  width: 100px;
+  height: auto;
+}
+
+.section:last-child {
+  page-break-inside: avoid;
+}
+
 @media print {
   body {
     background: #fff;
+    margin: 0;
   }
 
   .container {
@@ -170,45 +179,7 @@ table tr:nth-child(even) td {
     margin: 0;
   }
 
-  .qrcode img {
+  .qr-code img {
     display: none;
   }
-}
-
-
-.header-flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.logo-wrap {
-  flex: 0 0 auto;
-}
-
-.logo {
-  width: 70px;
-  height: auto;
-}
-
-.info-wrap {
-  flex: 1;
-  text-align: right; /* ✅ Căn phải */
-}
-
-.info-wrap h1 {
-  margin: 0 0 8px;
-  font-size: 20px;
-  color: #006400;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.address, .contact {
-  font-size: 14px;
-  margin: 2px 0;
-  color: #333;
-  line-height: 1.5;
 }
